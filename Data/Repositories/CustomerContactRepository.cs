@@ -4,6 +4,6 @@ using Data.Interfaces;
 
 namespace Data.Repositories;
 
-class CustomerContactRepository(DataContext context) : BaseRepository<CustomerContactEntity>(context), ICustomerContactRepository
+public class CustomerContactRepository(DataContext context) : BaseRepository<CustomerContactEntity>(context), ICustomerContactRepository
 {
 }

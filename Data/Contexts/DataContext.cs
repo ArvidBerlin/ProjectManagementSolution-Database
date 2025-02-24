@@ -33,7 +33,7 @@ public class DataContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Hjälp från ChatGTP, främst nmed OnDelete-behavior
+        // Hjälp från ChatGTP, främst med OnDelete-behavior
 
         modelBuilder.Entity<TaskAssignmentEntity>()
             .HasKey(ta => ta.Id);
@@ -46,7 +46,7 @@ public class DataContext : DbContext
 
         modelBuilder.Entity<TaskAssignmentEntity>()
             .HasOne(ta => ta.Task)
-            .WithMany(t => t.TaskAssignments)
+            .WithMany(ta => ta.TaskAssignments)
             .HasForeignKey(ta => ta.TaskId)
             .OnDelete(DeleteBehavior.Restrict);
 

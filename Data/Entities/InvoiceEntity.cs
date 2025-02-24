@@ -5,6 +5,7 @@ namespace Data.Entities;
 public class InvoiceEntity
 {
     public int Id { get; set; }
+
     public int ProjectId { get; set; }
     public ProjectEntity Project { get; set; } = null!;
 

@@ -43,7 +43,6 @@ builder.Services.AddScoped<ITaskAssignmentService, TaskAssignmentService>();
 builder.Services.AddScoped<ITasksService, TasksService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-
 var app = builder.Build();
 app.MapOpenApi();
 app.UseHttpsRedirection();

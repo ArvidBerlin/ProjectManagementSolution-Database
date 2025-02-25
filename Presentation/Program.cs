@@ -1,3 +1,5 @@
+using Business.Interfaces;
+using Business.Services;
 using Data.Contexts;
 using Data.Interfaces;
 using Data.Repositories;
@@ -22,8 +24,25 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 builder.Services.AddScoped<ITaskAssignmentRepository, TaskAssignmentRepository>();
-builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ITasksRepository, TasksRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
+builder.Services.AddScoped<ICustomerContactService, CustomerContactService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IPostalCodeService, PostalCodeService>();
+builder.Services.AddScoped<IProjectManagerService, ProjectManagerService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IProjectTypeService, ProjectTypeService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IStatusService, StatusService>();
+builder.Services.AddScoped<ITaskAssignmentService, TaskAssignmentService>();
+builder.Services.AddScoped<ITasksService, TasksService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 var app = builder.Build();
 app.MapOpenApi();

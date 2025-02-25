@@ -35,6 +35,12 @@ public class DataContext : DbContext
 
         // Hjälp från ChatGTP, främst med OnDelete-behavior
 
+        modelBuilder.Entity<ProjectEntity>()
+            .HasOne(p => p.Customer)
+            .WithMany(c => c.Projects)
+            .HasForeignKey(p => p.CustomerId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Entity<TaskAssignmentEntity>()
             .HasKey(ta => ta.Id);
 

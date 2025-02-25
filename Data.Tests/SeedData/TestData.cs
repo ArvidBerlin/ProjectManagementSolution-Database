@@ -4,18 +4,18 @@ namespace Data.Tests.SeedData;
 
 public static class TestData
 {
-    public static readonly CustomerAddressEntity[] CustomerAddresses =
+    public static readonly CustomerAddressEntity[] CustomerAddressEntities =
     [
         new CustomerAddressEntity { Id = 1, CustomerId = 1, PostalCodeId = 1, Street = "Valhallavägen 146" },
         new CustomerAddressEntity { Id = 2, CustomerId = 2, PostalCodeId = 2, Street = "Odengatan 31" },
         new CustomerAddressEntity { Id = 3, CustomerId = 3, PostalCodeId = 3, Street = "Tegnérgatan 17" }
     ];
 
-    public static readonly CustomerContactEntity[] CustomerContacts =
+    public static readonly CustomerContactEntity[] CustomerContactEntities =
     [
         new CustomerContactEntity { Id = 1, CustomerId = 1, FirstName = "Arvid", LastName = "Berlin", Email = "arvid@domain.com", Phone = "0701234567" },
-        new CustomerContactEntity { Id = 1, CustomerId = 1, FirstName = "Jesper", LastName = "Örnborn", Email = "jesper@domain.com", Phone = "0707654321" },
-        new CustomerContactEntity { Id = 1, CustomerId = 1, FirstName = "Erik", LastName = "Essén", Email = "erik@domain.com", Phone = "0731231234" }
+        new CustomerContactEntity { Id = 2, CustomerId = 2, FirstName = "Jesper", LastName = "Örnborn", Email = "jesper@domain.com", Phone = "0707654321" },
+        new CustomerContactEntity { Id = 3, CustomerId = 3, FirstName = "Erik", LastName = "Essén", Email = "erik@domain.com", Phone = "0731231234" }
     ];
 
     public static readonly CustomerEntity[] CustomerEntities =
@@ -69,7 +69,7 @@ public static class TestData
     [
         new PostalCodeEntity { Id = 1, PostalCode = "113 51", City = "Stockholm" },
         new PostalCodeEntity { Id = 2, PostalCode = "177 44", City = "Järfälla" },
-        new PostalCodeEntity { Id = 1, PostalCode = "113 55", City = "Stockholm" }
+        new PostalCodeEntity { Id = 3, PostalCode = "113 55", City = "Stockholm" }
     ];
 
     public static readonly ProjectEntity[] ProjectEntities =
@@ -83,23 +83,25 @@ public static class TestData
             StatusId = 1,
             CustomerId = 1,
             ProjectManagerId = 1,
+            ServiceId = 1,
             ProjectTypeId = 1
         },
 
         new ProjectEntity {
-            Id = 1,
+            Id = 2,
             ProjectName = "Silo",
             Description = "Dystopisk thriller",
             StartDate = new DateTime(2024, 11, 15),
             EndDate = new DateTime(2025, 01, 17),
-            StatusId = 3,
+            StatusId = 2,
             CustomerId = 2,
             ProjectManagerId = 2,
-            ProjectTypeId = 3
+            ServiceId = 2,
+            ProjectTypeId = 2
         },
 
         new ProjectEntity {
-            Id = 1,
+            Id = 3,
             ProjectName = "Shogun",
             Description = "Historisk episk drama",
             StartDate = new DateTime(2024, 02, 27),
@@ -107,6 +109,7 @@ public static class TestData
             StatusId = 3,
             CustomerId = 3,
             ProjectManagerId = 3,
+            ServiceId = 3,
             ProjectTypeId = 3
         }
     ];
@@ -115,10 +118,10 @@ public static class TestData
     [
         new ProjectManagerEntity { Id = 1, EmployeeId = 1 },
         new ProjectManagerEntity { Id = 2, EmployeeId = 2 },
-        new ProjectManagerEntity { Id = 2, EmployeeId = 2 }
+        new ProjectManagerEntity { Id = 3, EmployeeId = 3 }
     ];
 
-    public static readonly ProjectTypeEntity[] ProjectTypesEntities =
+    public static readonly ProjectTypeEntity[] ProjectTypeEntities =
     [
         new ProjectTypeEntity { Id = 1, TypeName = "Preproduktion", Price = 100, PricingUnit = "Tim" },
         new ProjectTypeEntity { Id = 2, TypeName = "Postproduktion", Price = 100, PricingUnit = "Tim" },
@@ -129,14 +132,14 @@ public static class TestData
     [
         new RoleEntity { Id = 1, RoleName = "Producent" },
         new RoleEntity { Id = 2, RoleName = "Regissör" },
-        new RoleEntity { Id = 2, RoleName = "Fotograf" }
+        new RoleEntity { Id = 3, RoleName = "Fotograf" }
     ];
 
     public static readonly ServiceEntity[] ServiceEntities =
     [
         new ServiceEntity { Id = 1, ServiceName = "Biluthyrning", PricePerHour = 800 },
-        new ServiceEntity { Id = 1, ServiceName = "Manusbearbetning", PricePerHour = 1000 },
-        new ServiceEntity { Id = 1, ServiceName = "Kamerauthyrning", PricePerHour = 1500 }
+        new ServiceEntity { Id = 2, ServiceName = "Manusbearbetning", PricePerHour = 1000 },
+        new ServiceEntity { Id = 3, ServiceName = "Kamerauthyrning", PricePerHour = 1500 }
     ];
 
     public static readonly StatusEntity[] StatusEntities =
@@ -146,7 +149,7 @@ public static class TestData
         new StatusEntity { Id = 3, StatusName = "Avslutad" }
     ];
 
-    public static readonly TaskAssignmentEntity[] TaskAssignments =
+    public static readonly TaskAssignmentEntity[] TaskAssignmentEntities =
     [
         new TaskAssignmentEntity { 
             Id = 1, 
@@ -212,7 +215,7 @@ public static class TestData
         },
 
         new UserEntity {
-            Id = 2,
+            Id = 3,
             Username = "erike",
             FirstName = "Erik",
             LastName = "Essén",
@@ -220,8 +223,8 @@ public static class TestData
             Password = "Daligtlosen123!",
             Created = new DateTime(2025, 03, 18),
             Modified = new DateTime(2025, 04, 05),
-            RoleId = 2,
-            EmployeeId = 2
+            RoleId = 3,
+            EmployeeId = 3
         }
     ];
 }

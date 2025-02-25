@@ -19,9 +19,9 @@ public static class DataContextSeeder
 
     public static async Task SeedAsync(DataContext context)
     {
-        context.CustomerAddresses.AddRange(TestData.CustomerAddresses);
+        context.CustomerAddresses.AddRange(TestData.CustomerAddressEntities);
 
-        context.CustomerContacts.AddRange(TestData.CustomerContacts);
+        context.CustomerContacts.AddRange(TestData.CustomerContactEntities);
 
         context.Customers.AddRange(TestData.CustomerEntities);
 
@@ -33,7 +33,7 @@ public static class DataContextSeeder
 
         context.ProjectManagers.AddRange(TestData.ProjectManagerEntities);
 
-        context.ProjectTypes.AddRange(TestData.ProjectTypesEntities);
+        context.ProjectTypes.AddRange(TestData.ProjectTypeEntities);
 
         context.Roles.AddRange(TestData.RoleEntities);
 
@@ -41,7 +41,7 @@ public static class DataContextSeeder
 
         context.Statuses.AddRange(TestData.StatusEntities);
 
-        context.TaskAssignments.AddRange(TestData.TaskAssignments);
+        context.TaskAssignments.AddRange(TestData.TaskAssignmentEntities);
 
         context.Tasks.AddRange(TestData.TaskEntities);
 
@@ -52,9 +52,9 @@ public static class DataContextSeeder
 
     public static async Task SeedWithProjectsAsync(DataContext context)
     {
-        context.CustomerAddresses.AddRange(TestData.CustomerAddresses);
+        context.CustomerAddresses.AddRange(TestData.CustomerAddressEntities);
 
-        context.CustomerContacts.AddRange(TestData.CustomerContacts);
+        context.CustomerContacts.AddRange(TestData.CustomerContactEntities);
 
         context.Customers.AddRange(TestData.CustomerEntities);
 
@@ -66,7 +66,7 @@ public static class DataContextSeeder
 
         context.ProjectManagers.AddRange(TestData.ProjectManagerEntities);
 
-        context.ProjectTypes.AddRange(TestData.ProjectTypesEntities);
+        context.ProjectTypes.AddRange(TestData.ProjectTypeEntities);
 
         context.Roles.AddRange(TestData.RoleEntities);
 
@@ -74,7 +74,7 @@ public static class DataContextSeeder
 
         context.Statuses.AddRange(TestData.StatusEntities);
 
-        context.TaskAssignments.AddRange(TestData.TaskAssignments);
+        context.TaskAssignments.AddRange(TestData.TaskAssignmentEntities);
 
         context.Tasks.AddRange(TestData.TaskEntities);
 

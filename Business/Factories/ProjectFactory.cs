@@ -61,3 +61,22 @@ public static class ProjectFactory
         }
     }
 }
+
+
+/*
+
+public static Project? Map(ProjectEntity entity) => entity == null ? null : new Project
+    {
+        Id = entity.Id,
+        ProjectName = entity.ProjectName,
+        Description = entity.Description,
+        StartDate = entity.StartDate.ToString("yyyy-mm-dd"),
+        EndDate = entity.EndDate?.ToString("yyyy-mm-dd"),
+        Status = StatusFactory.Map(entity.Status),
+        Customer = CustomerFactory.Map(entity.Customer),
+        ProjectManager = ProjectManagerFactory.Map(entity.ProjectManager),
+        Service = ServiceFactory.Map(entity.Service),
+        ProjectType = ProjectTypeFactory.Map(entity.ProjectType)
+    };
+
+*/

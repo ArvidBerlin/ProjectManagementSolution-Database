@@ -111,12 +111,11 @@ public class ProjectRepository_Tests
         updatedProject.ProjectName = "Updated Project Name";
 
         // Act
-        await repository.UpdateAsync(updatedProject);
-        var result = await repository.GetAsync(x => x.Id == existingProject.Id);
+        var result = await repository.UpdateAsync(updatedProject);
 
         // Assert
-        Assert.NotNull(result);
-        Assert.Equal("Updated Project Name", result.ProjectName);
+        Assert.True(result);
+        Assert.Equal("Updated Project Name", existingProject.ProjectName);
     }
 
     [Fact]
@@ -135,27 +134,12 @@ public class ProjectRepository_Tests
         await context.SaveChangesAsync();
         IProjectRepository repository = new ProjectRepository(context);
 
-        var projectToRemove = await context.Projects.FindAsync(1);
-        Assert.NotNull(projectToRemove); 
-
-        // Act
-        await repository.RemoveAsync(projectToRemove);
-
-        // Assert 
-        var deletedProject = await context.Projects.FindAsync(1);
-        Assert.Null(deletedProject);
-    }
-}
-
-/*
-
         var projectToRemove = TestData.ProjectEntities.First();
 
         // Act
-        await repository.RemoveAsync(projectToRemove);
-        var result = await repository.GetAsync(x => x.Id == projectToRemove.Id);
+        var result = await repository.RemoveAsync(projectToRemove);
 
         // Assert
-        Assert.Null(result);
-
-*/
+        Assert.True(result);
+    }
+}

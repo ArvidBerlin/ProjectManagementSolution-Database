@@ -17,7 +17,7 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
             return BadRequest(ModelState);
 
         var project = await _projectService.CreateProjectAsync(form);
-        return project == null ? BadRequest() : Ok(project);
+        return project != null ? Ok(project) : BadRequest();
     }
 
     [HttpGet]

@@ -39,7 +39,31 @@ public class DataContext : DbContext
             .HasOne(p => p.Customer)
             .WithMany(c => c.Projects)
             .HasForeignKey(p => p.CustomerId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ProjectEntity>()
+            .HasOne(p => p.Status)
+            .WithMany()
+            .HasForeignKey(p => p.StatusId)
+            .OnDelete(DeleteBehavior.Restrict); 
+
+        modelBuilder.Entity<ProjectEntity>()
+            .HasOne(p => p.ProjectManager)
+            .WithMany()
+            .HasForeignKey(p => p.ProjectManagerId)
+            .OnDelete(DeleteBehavior.Restrict); 
+
+        modelBuilder.Entity<ProjectEntity>()
+            .HasOne(p => p.Service)
+            .WithMany()
+            .HasForeignKey(p => p.ServiceId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ProjectEntity>()
+            .HasOne(p => p.ProjectType)
+            .WithMany()
+            .HasForeignKey(p => p.ProjectTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TaskAssignmentEntity>()
             .HasKey(ta => ta.Id);
@@ -58,14 +82,15 @@ public class DataContext : DbContext
 
         modelBuilder.Entity<CustomerAddressEntity>()
             .HasOne(ca => ca.Customer)
-            .WithMany()
-            .HasForeignKey(ca => ca.CustomerId);
+            .WithMany(ca => ca.CustomerAddresses)
+            .HasForeignKey(ca => ca.CustomerId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<InvoiceEntity>()
         .HasOne(i => i.Project)
-        .WithMany() 
+        .WithMany(i => i.Invoices) 
         .HasForeignKey(i => i.ProjectId)
-        .OnDelete(DeleteBehavior.Restrict); 
+        .OnDelete(DeleteBehavior.Cascade); 
 
         modelBuilder.Entity<InvoiceEntity>()
             .HasOne(i => i.Customer)

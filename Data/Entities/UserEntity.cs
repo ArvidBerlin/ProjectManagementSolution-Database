@@ -1,4 +1,6 @@
-﻿namespace Data.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Data.Entities;
 
 public class UserEntity
 {
@@ -16,6 +18,4 @@ public class UserEntity
 
     public int EmployeeId { get; set; }
     public EmployeeEntity Employee { get; set; } = null!;
-
-    public ICollection<ProjectEntity> Projects { get; set; } = [];
 }

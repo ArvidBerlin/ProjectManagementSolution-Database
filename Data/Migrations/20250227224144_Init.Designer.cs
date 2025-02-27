@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250223192842_Init")]
+    [Migration("20250227224144_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,9 +33,6 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CustomerEntityId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
@@ -47,8 +44,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerEntityId");
 
                     b.HasIndex("CustomerId");
 
@@ -143,7 +138,7 @@ namespace Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -157,17 +152,12 @@ namespace Data.Migrations
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ProjectEntityId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProjectEntityId");
 
                     b.HasIndex("ProjectId");
 
@@ -210,7 +200,7 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("ProjectManagerId")
                         .HasColumnType("int");
@@ -226,12 +216,9 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserEntityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -245,8 +232,6 @@ namespace Data.Migrations
                     b.HasIndex("ServiceId");
 
                     b.HasIndex("StatusId");
-
-                    b.HasIndex("UserEntityId");
 
                     b.ToTable("Projects");
                 });
@@ -278,7 +263,7 @@ namespace Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("PricingUnit")
                         .IsRequired()
@@ -319,7 +304,7 @@ namespace Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("PricePerHour")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("ServiceName")
                         .IsRequired()
@@ -455,12 +440,8 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Entities.CustomerAddressEntity", b =>
                 {
-                    b.HasOne("Data.Entities.CustomerEntity", null)
-                        .WithMany("CustomerAddresses")
-                        .HasForeignKey("CustomerEntityId");
-
                     b.HasOne("Data.Entities.CustomerEntity", "Customer")
-                        .WithMany()
+                        .WithMany("CustomerAddresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -506,14 +487,10 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data.Entities.ProjectEntity", null)
-                        .WithMany("Invoices")
-                        .HasForeignKey("ProjectEntityId");
-
                     b.HasOne("Data.Entities.ProjectEntity", "Project")
-                        .WithMany()
+                        .WithMany("Invoices")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -526,36 +503,32 @@ namespace Data.Migrations
                     b.HasOne("Data.Entities.CustomerEntity", "Customer")
                         .WithMany("Projects")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Data.Entities.ProjectManagerEntity", "ProjectManager")
-                        .WithMany("Projects")
+                        .WithMany()
                         .HasForeignKey("ProjectManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Data.Entities.ProjectTypeEntity", "ProjectType")
-                        .WithMany("Projects")
+                        .WithMany()
                         .HasForeignKey("ProjectTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Data.Entities.ServiceEntity", "Service")
-                        .WithMany("Projects")
+                        .WithMany()
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Data.Entities.StatusEntity", "Status")
-                        .WithMany("Projects")
+                        .WithMany()
                         .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Data.Entities.UserEntity", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("UserEntityId");
 
                     b.Navigation("Customer");
 
@@ -646,34 +619,9 @@ namespace Data.Migrations
                     b.Navigation("TaskAssignments");
                 });
 
-            modelBuilder.Entity("Data.Entities.ProjectManagerEntity", b =>
-                {
-                    b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("Data.Entities.ProjectTypeEntity", b =>
-                {
-                    b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("Data.Entities.ServiceEntity", b =>
-                {
-                    b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("Data.Entities.StatusEntity", b =>
-                {
-                    b.Navigation("Projects");
-                });
-
             modelBuilder.Entity("Data.Entities.TaskEntity", b =>
                 {
                     b.Navigation("TaskAssignments");
-                });
-
-            modelBuilder.Entity("Data.Entities.UserEntity", b =>
-                {
-                    b.Navigation("Projects");
                 });
 #pragma warning restore 612, 618
         }

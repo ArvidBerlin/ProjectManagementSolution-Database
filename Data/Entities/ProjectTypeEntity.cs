@@ -10,6 +10,4 @@ public class ProjectTypeEntity
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Price { get; set; }
     public string PricingUnit { get; set; } = null!;
-
-    public ICollection<ProjectEntity> Projects { get; set; } = [];
 }

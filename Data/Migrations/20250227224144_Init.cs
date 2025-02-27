@@ -138,17 +138,11 @@ namespace Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     PostalCodeId = table.Column<int>(type: "int", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerEntityId = table.Column<int>(type: "int", nullable: true)
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CustomerAddresses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CustomerAddresses_Customers_CustomerEntityId",
-                        column: x => x.CustomerEntityId,
-                        principalTable: "Customers",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_CustomerAddresses_Customers_CustomerId",
                         column: x => x.CustomerId,
@@ -244,14 +238,13 @@ namespace Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: true),
                     StatusId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     ProjectManagerId = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
-                    ProjectTypeId = table.Column<int>(type: "int", nullable: false),
-                    UserEntityId = table.Column<int>(type: "int", nullable: true)
+                    ProjectTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -261,36 +254,31 @@ namespace Data.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Projects_ProjectManagers_ProjectManagerId",
                         column: x => x.ProjectManagerId,
                         principalTable: "ProjectManagers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Projects_ProjectTypes_ProjectTypeId",
                         column: x => x.ProjectTypeId,
                         principalTable: "ProjectTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Projects_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Projects_Statuses_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Statuses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Projects_Users_UserEntityId",
-                        column: x => x.UserEntityId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -304,8 +292,7 @@ namespace Data.Migrations
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsPaid = table.Column<bool>(type: "bit", nullable: false),
-                    ProjectEntityId = table.Column<int>(type: "int", nullable: true)
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -317,16 +304,11 @@ namespace Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Invoices_Projects_ProjectEntityId",
-                        column: x => x.ProjectEntityId,
-                        principalTable: "Projects",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Invoices_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -365,11 +347,6 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerAddresses_CustomerEntityId",
-                table: "CustomerAddresses",
-                column: "CustomerEntityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerAddresses_CustomerId",
                 table: "CustomerAddresses",
                 column: "CustomerId");
@@ -393,11 +370,6 @@ namespace Data.Migrations
                 name: "IX_Invoices_CustomerId",
                 table: "Invoices",
                 column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Invoices_ProjectEntityId",
-                table: "Invoices",
-                column: "ProjectEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_ProjectId",
@@ -433,11 +405,6 @@ namespace Data.Migrations
                 name: "IX_Projects_StatusId",
                 table: "Projects",
                 column: "StatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Projects_UserEntityId",
-                table: "Projects",
-                column: "UserEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskAssignments_EmployeeId",
@@ -487,6 +454,9 @@ namespace Data.Migrations
                 name: "TaskAssignments");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "PostalCodes");
 
             migrationBuilder.DropTable(
@@ -509,9 +479,6 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Statuses");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Employees");

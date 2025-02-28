@@ -16,6 +16,7 @@ public class ProjectRepository(DataContext context) : BaseRepository<ProjectEnti
             var entities = await _context.Projects
                 .Include(x => x.Customer)
                 .Include(x => x.ProjectManager)
+                .ThenInclude(x => x.Employee)
                 .Include(x => x.ProjectType)
                 .Include(x => x.Status)
                 .ToListAsync();

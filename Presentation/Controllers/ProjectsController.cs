@@ -35,12 +35,12 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateProject(Project project)
+    public async Task<IActionResult> UpdateProject(ProjectUpdateForm form)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var updatedProject = await _projectService.UpdateProjectAsync(project);
+        var updatedProject = await _projectService.UpdateProjectAsync(form);
         return updatedProject ? Ok() : BadRequest();
     }
 

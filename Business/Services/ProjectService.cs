@@ -54,13 +54,13 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         return project;
     }
 
-    public async Task<bool> UpdateProjectAsync(Project project)
+    public async Task<bool> UpdateProjectAsync(ProjectUpdateForm form)
     {
         try
         {
-            ArgumentNullException.ThrowIfNull(project);
+            ArgumentNullException.ThrowIfNull(form);
 
-            var projectEntity = ProjectFactory.Map(project);
+            var projectEntity = ProjectFactory.Map(form);
 
             if (projectEntity == null)
                 return false;

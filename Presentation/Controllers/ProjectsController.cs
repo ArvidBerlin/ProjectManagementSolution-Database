@@ -34,8 +34,8 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         return project != null ? Ok(project) : NotFound();
     }
 
-    [HttpPut]
-    public async Task<IActionResult> UpdateProject(ProjectUpdateForm form)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateProject(int id, ProjectUpdateForm form)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);

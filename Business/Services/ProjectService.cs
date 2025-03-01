@@ -60,12 +60,14 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         {
             ArgumentNullException.ThrowIfNull(form);
 
-            var projectEntity = ProjectFactory.Map(form);
+            var existingProject = await _projectRepository.GetAsync(x => x.Id == form.Id);
 
-            if (projectEntity == null)
-                return false;
+            if (existingProject == null)
+                return false; 
 
-            var result = await _projectRepository.UpdateAsync(projectEntity);
+            ProjectFactory.Map(existingProject, form);
+
+            var result = await _projectRepository.UpdateAsync(existingProject);
             return result;
         }
         catch (Exception ex)

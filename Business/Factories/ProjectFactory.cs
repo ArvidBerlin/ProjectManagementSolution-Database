@@ -19,18 +19,21 @@ public static class ProjectFactory
         ProjectTypeId = form.ProjectTypeId
     };
 
-    public static ProjectEntity? Map(ProjectUpdateForm form) => form == null ? null : new ProjectEntity
+    public static void Map(ProjectEntity existingProject, ProjectUpdateForm form)
     {
-        ProjectName = form.ProjectName,
-        Description = form.Description,
-        StartDate = form.StartDate,
-        EndDate = form.EndDate,
-        StatusId = form.StatusId,
-        CustomerId = form.CustomerId,
-        ProjectManagerId = form.ProjectManagerId,
-        ServiceId = form.ServiceId,
-        ProjectTypeId = form.ProjectTypeId
-    };
+        if (existingProject == null || form == null)
+            return;
+
+        existingProject.ProjectName = form.ProjectName;
+        existingProject.Description = form.Description;
+        existingProject.StartDate = form.StartDate;
+        existingProject.EndDate = form.EndDate;
+        existingProject.StatusId = form.StatusId;
+        existingProject.CustomerId = form.CustomerId;
+        existingProject.ProjectManagerId = form.ProjectManagerId;
+        existingProject.ServiceId = form.ServiceId;
+        existingProject.ProjectTypeId = form.ProjectTypeId;
+    }
 
     public static Project? Map(ProjectEntity entity) => entity == null ? null : new Project
     {
@@ -74,22 +77,3 @@ public static class ProjectFactory
         }
     }
 }
-
-
-/*
-
-public static Project? Map(ProjectEntity entity) => entity == null ? null : new Project
-    {
-        Id = entity.Id,
-        ProjectName = entity.ProjectName,
-        Description = entity.Description,
-        StartDate = entity.StartDate.ToString("yyyy-mm-dd"),
-        EndDate = entity.EndDate?.ToString("yyyy-mm-dd"),
-        Status = StatusFactory.Map(entity.Status),
-        Customer = CustomerFactory.Map(entity.Customer),
-        ProjectManager = ProjectManagerFactory.Map(entity.ProjectManager),
-        Service = ServiceFactory.Map(entity.Service),
-        ProjectType = ProjectTypeFactory.Map(entity.ProjectType)
-    };
-
-*/
